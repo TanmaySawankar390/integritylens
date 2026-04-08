@@ -191,7 +191,7 @@ export async function gradeAnswer(payload: GradePayload): Promise<GradeResult> {
           ideal_answer_en: "",
           reconstructed_answer_en: "",
           error_tags: ["provider_error"],
-          needs_manual_review: false
+          needs_manual_review: true
         };
       }
     }
@@ -216,7 +216,7 @@ export async function gradeAnswer(payload: GradePayload): Promise<GradeResult> {
       ideal_answer_en: "",
       reconstructed_answer_en: "",
       error_tags: tags,
-      needs_manual_review: false
+      needs_manual_review: true
     };
   }
 }

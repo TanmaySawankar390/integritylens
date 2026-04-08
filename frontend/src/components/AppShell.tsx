@@ -9,19 +9,21 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const [ready, setReady] = useState(false);
-  const auth = getAuth();
+  const [auth, setAuthState] = useState<ReturnType<typeof getAuth>>(null);
 
   useEffect(() => {
+    const currentAuth = getAuth();
+    setAuthState(currentAuth);
     setReady(true);
-  }, []);
 
-  useEffect(() => {
-    if (!ready) return;
-    if (!auth?.token && pathname !== "/login") router.replace("/login");
-  }, [auth?.token, pathname, ready, router]);
+    if (!currentAuth?.token && pathname !== "/login") {
+      router.replace("/login");
+    }
+  }, [pathname, router]);
 
   const onLogout = () => {
     clearAuth();
+    setAuthState(null);
     router.replace("/login");
   };
 
@@ -31,30 +33,36 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const showNav = pathname !== "/login";
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[var(--background)] flex flex-col">
       {showNav && (
-        <div className="bg-[var(--brand)] text-[var(--brand-foreground)] shadow-sm">
-          <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
-            <Link href="/tests" className="text-lg font-semibold tracking-tight">
-              ShikshaMitra
+        <header className="sticky top-0 z-10 bg-[var(--surface)]/80 backdrop-blur-md border-b border-[var(--border)]">
+          <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+            <Link href="/tests" className="flex items-center gap-2">
+              <span className="text-xl font-medium tracking-tight text-[var(--brand)] font-serif">
+                ShikshaMitra
+              </span>
             </Link>
-            <div className="flex items-center gap-3 text-sm">
+            <div className="flex items-center gap-4 text-sm">
               {auth?.teacher?.displayName ? (
-                <span className="rounded-full bg-white/10 px-3 py-1">{auth.teacher.displayName}</span>
+                <span className="text-[var(--muted)] pl-4 border-l border-[var(--border)]">
+                  {auth.teacher.displayName}
+                </span>
               ) : null}
               {isAuthed ? (
                 <button
                   onClick={onLogout}
-                  className="rounded-md bg-white/10 px-3 py-1 hover:bg-white/20"
+                  className="text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"
                 >
                   Logout
                 </button>
               ) : null}
             </div>
           </div>
-        </div>
+        </header>
       )}
-      <div className="mx-auto max-w-6xl px-6 py-8">{children}</div>
+      <main className="flex-1 w-full mx-auto max-w-6xl px-6 py-10">
+        {children}
+      </main>
     </div>
   );
 }

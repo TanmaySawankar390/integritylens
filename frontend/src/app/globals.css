@@ -1,41 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:wght@600;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0b1021;
-  --brand: #4f46e5;
+  --background: #fafaf8;
+  --foreground: #1a1a2e;
+  --brand: #1e3a5f;
+  --brand-light: #2d5a8e;
   --brand-foreground: #ffffff;
-  --muted: #6b7280;
+  --accent: #c9842b;
+  --accent-light: #f5e6cc;
+  --muted: #6b7b8d;
   --surface: #ffffff;
-  --border: #e5e7eb;
+  --surface-raised: #ffffff;
+  --border: #e8e4df;
+  --border-light: #f0ece7;
+  --success: #2d7a4f;
+  --success-light: #e6f4ec;
+  --error: #c0392b;
+  --error-light: #fdf0ef;
+  --warning: #d4820a;
+  --warning-light: #fef6e6;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-brand: var(--brand);
+  --color-brand-light: var(--brand-light);
   --color-brand-foreground: var(--brand-foreground);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
   --color-muted: var(--muted);
   --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
   --color-border: var(--border);
-  --font-sans: var(--font-geist-sans);
+  --color-border-light: var(--border-light);
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Source Serif 4', Georgia, serif;
   --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0b1021;
-    --foreground: #e5e7eb;
-    --brand: #6366f1;
+    --background: #0f1219;
+    --foreground: #e2e0dc;
+    --brand: #4a8cc7;
+    --brand-light: #3a6fa0;
     --brand-foreground: #ffffff;
-    --muted: #9ca3af;
-    --surface: #0f172a;
-    --border: #1f2937;
+    --accent: #d4972e;
+    --accent-light: #2a2218;
+    --muted: #8a9bae;
+    --surface: #1a1f2b;
+    --surface-raised: #222838;
+    --border: #2a3040;
+    --border-light: #232938;
+    --success: #3da065;
+    --success-light: #1a2e22;
+    --error: #e05a4e;
+    --error-light: #2e1a18;
+    --warning: #d4972e;
+    --warning-light: #2a2218;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth transitions for interactive elements */
+button, a, input, select, textarea {
+  transition: all 0.15s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* Focus ring */
+*:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 4px;
 }

@@ -1,21 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AppShell } from "@/components/AppShell";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "ShikshaMitra",
-  description: "AI-assisted handwritten grading for CBSE Class 10",
+  title: "ShikshaMitra — AI Grading for Educators",
+  description: "AI-assisted handwritten answer grading for CBSE Class 10 teachers",
 };
 
 export default function RootLayout({
@@ -25,9 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-zinc-50 text-zinc-900`}
-      >
+      <body className="antialiased">
         <AppShell>{children}</AppShell>
       </body>
     </html>

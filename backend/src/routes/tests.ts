@@ -139,11 +139,13 @@ testsRouter.get("/:testId/scripts", asyncHandler(async (req: AuthenticatedReques
     status: string;
     total_marks_awarded: number | null;
     created_at: string;
+    student_name: string | null;
   }>(
     `
-    SELECT s.id, s.status, s.total_marks_awarded, s.created_at
+    SELECT s.id, s.status, s.total_marks_awarded, s.created_at, st.display_name AS student_name
     FROM answer_scripts s
     INNER JOIN tests t ON t.id = s.test_id
+    LEFT JOIN students st ON st.id = s.student_id
     WHERE s.test_id = @testId AND t.school_id = @schoolId
     ORDER BY s.created_at DESC
     `,

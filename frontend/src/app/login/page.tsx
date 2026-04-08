@@ -26,7 +26,7 @@ export default function LoginPage() {
         body: JSON.stringify({ email, password })
       });
       setAuth({ token: data.token, teacher: data.teacher });
-      router.replace("/tests/new");
+      router.replace("/tests");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed");
     } finally {
@@ -35,44 +35,48 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="mx-auto max-w-md">
-      <h1 className="text-2xl font-semibold text-[var(--foreground)]">Teacher Login</h1>
-      <p className="mt-1 text-sm text-[var(--muted)]">
-        Sign in to create tests, upload answer sheets, and review AI grading.
-      </p>
+    <div className="flex min-h-[80vh] flex-col items-center justify-center">
+      <div className="w-full max-w-sm text-center mb-8">
+        <h1 className="text-3xl font-serif font-medium text-[var(--brand)]">ShikshaMitra</h1>
+        <p className="mt-2 text-[var(--muted)] text-sm">
+          Intelligent assessment for modern educators.
+        </p>
+      </div>
 
-      <form onSubmit={onSubmit} className="mt-6 space-y-4 rounded-xl border border-[var(--border)] bg-[var(--surface)] p-5 shadow-sm">
-        <div>
-          <label className="text-sm font-medium">Email</label>
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 w-full rounded-md border border-[var(--border)] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
-            autoComplete="email"
-          />
-        </div>
-        <div>
-          <label className="text-sm font-medium">Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 w-full rounded-md border border-[var(--border)] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--brand)]"
-            autoComplete="current-password"
-          />
-        </div>
-        {error ? (
-          <div className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700">
-            {error}
+      <div className="w-full max-w-sm">
+        <form onSubmit={onSubmit} className="space-y-5 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+          <div className="space-y-1">
+            <label className="text-xs uppercase tracking-wider font-semibold text-[var(--muted)]">Email</label>
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-4 py-2.5 text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--brand)] transition-shadow"
+              autoComplete="email"
+            />
           </div>
-        ) : null}
-        <button
-          disabled={loading}
-          className="w-full rounded-md bg-[var(--brand)] px-4 py-2 font-medium text-[var(--brand-foreground)] hover:brightness-110 disabled:opacity-60"
-        >
-          {loading ? "Signing in..." : "Sign in"}
-        </button>
-      </form>
+          <div className="space-y-1">
+            <label className="text-xs uppercase tracking-wider font-semibold text-[var(--muted)]">Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-4 py-2.5 text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--brand)] transition-shadow"
+              autoComplete="current-password"
+            />
+          </div>
+          {error ? (
+            <div className="rounded-lg border border-[var(--error)]/20 bg-[var(--error-light)] p-3 text-sm text-[var(--error)]">
+              {error}
+            </div>
+          ) : null}
+          <button
+            disabled={loading}
+            className="w-full rounded-lg bg-[var(--brand)] px-4 py-3 font-medium text-[var(--brand-foreground)] hover:bg-[var(--brand-light)] disabled:opacity-60 transition-colors mt-2"
+          >
+            {loading ? "Authenticating..." : "Sign in to Workspace"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
